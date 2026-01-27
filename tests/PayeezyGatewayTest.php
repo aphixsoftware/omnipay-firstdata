@@ -12,7 +12,7 @@ class PayeezyGatewayTest extends GatewayTestCase
     /** @var  array */
     protected $options;
 
-    public function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 

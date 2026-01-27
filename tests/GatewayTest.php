@@ -6,7 +6,10 @@ use Omnipay\Tests\GatewayTestCase;
 
 class GatewayTest extends GatewayTestCase
 {
-    public function setUp()
+    /** @var array */
+    protected $options = [];
+    
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -31,7 +34,7 @@ class GatewayTest extends GatewayTestCase
         $this->assertFalse($response->isSuccessful());
         $this->assertTrue($response->isRedirect());
         $this->assertNull($response->getTransactionReference());
-        $this->assertContains('ipg-online.com/connect/gateway/processing', $response->getRedirectUrl());
+        $this->assertTrue(strpos($response->getRedirectUrl(), 'ipg-online.com/connect/gateway/processing') !== false);
     }
 
     public function testCompletePurchaseSuccess()
@@ -56,9 +59,6 @@ class GatewayTest extends GatewayTestCase
         $this->assertNull($response->getTransactionReference());
     }
 
-    /**
-     * @expectedException \Omnipay\Common\Exception\InvalidResponseException
-     */
     public function testCompletePurchaseInvalidCallbackPassword()
     {
         $this->getHttpRequest()->request->replace(
@@ -71,6 +71,8 @@ class GatewayTest extends GatewayTestCase
                 'approval_code' => 'Y:136432:0013649958:PPXM:0015'
             )
         );
+
+        $this->expectException(\Omnipay\Common\Exception\InvalidResponseException::class);
 
         $response = $this->gateway->completePurchase($this->options)->send();
     }
@@ -119,8 +121,6 @@ class GatewayTest extends GatewayTestCase
      *
      * Simulates paying using a saved card, rather than passing card data
      * This example is checking that an exception occurs if missing the CVV number
-     *
-     * @expectedException \Omnipay\Common\Exception\InvalidCreditCardException
      */
     public function testPurchaseWithHostedDataIdAndWithoutCardFailsWithoutCVV()
     {
@@ -130,6 +130,8 @@ class GatewayTest extends GatewayTestCase
         unset($this->options['card']['number']);
         // Also remove required cvv to check for error
         unset($this->options['card']['cvv']);
+
+        $this->expectException(\Omnipay\Common\Exception\InvalidCreditCardException::class);
 
         $response = $this->gateway->purchase($this->options)->send();
 
@@ -163,13 +165,13 @@ class GatewayTest extends GatewayTestCase
      * testPurchaseErrorWhenMissingHostedDataIdAndWithoutCardNumber.
      *
      * Simulates neither hosteddataid or card data being passed, should be caught in app.
-     *
-     * @expectedException \Omnipay\Common\Exception\InvalidCreditCardException
      */
     public function testPurchaseErrorWhenMissingHostedDataIdAndWithoutCardNumber()
     {
         unset($this->options['card']);
         $this->options['card']['cvv'] = 123;
+
+        $this->expectException(\Omnipay\Common\Exception\InvalidCreditCardException::class);
 
         $response = $this->gateway->purchase($this->options)->send();
 
