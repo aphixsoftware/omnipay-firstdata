@@ -1,5 +1,5 @@
 {
-    "name": "omnipay/firstdata",
+    "name": "aphixsoftware/omnipay-firstdata",
     "type": "library",
     "description": "First Data driver for the Omnipay payment processing library",
     "keywords": [
@@ -11,7 +11,7 @@
         "pay",
         "payment"
     ],
-    "homepage": "https://github.com/thephpleague/omnipay-firstdata",
+    "homepage": "https://github.com/aphixsoftware/omnipay-firstdata",
     "license": "MIT",
     "authors": [
         {
