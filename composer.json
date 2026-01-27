@@ -27,17 +27,21 @@
         "psr-4": { "Omnipay\\FirstData\\" : "src/" }
     },
     "require": {
-        "php": "^5.6|^7",
-        "omnipay/common": "~3.0",
-        "php-http/guzzle6-adapter": "^1.1"
+        "php": "^7.3|^8",
+        "omnipay/common": "~3.1"
     },
     "require-dev": {
-        "omnipay/tests": "~3.1"
+        "omnipay/tests": "^4"
     },
     "extra": {
         "branch-alias": {
             "dev-master": "3.0.x-dev"
         }
     },
-    "prefer-stable": true
+    "prefer-stable": true,
+    "config": {
+        "allow-plugins": {
+            "php-http/discovery": true
+        }
+    }
 }
