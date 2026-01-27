@@ -32,7 +32,12 @@ class WebservicePurchaseRequestTest extends TestCase
 
         // Test request internals
         $curl = $request->buildCurlClient();
-        $this->assertTrue(is_resource($curl));
+
+        if (phpversion() >= '8.0.0') {
+            $this->assertInstanceOf(\CurlHandle::class, $curl);
+        } else {
+            $this->assertIsResource($curl);
+        }
 
         $endpoint = $request->getEndpoint();
         $this->assertEquals('https://ws.merchanttest.firstdataglobalgateway.com:443/fdggwsapi/services', $endpoint);
