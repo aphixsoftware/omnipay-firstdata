@@ -5,6 +5,7 @@
 
 namespace Omnipay\FirstData\Message;
 
+use CurlHandle;
 use Omnipay\Common\Message\AbstractRequest;
 
 /**
@@ -24,7 +25,7 @@ abstract class WebserviceAbstractRequest extends AbstractRequest
     /** @var string Test endpoint for direct posting XML data */
     protected $testEndpoint = 'https://ws.merchanttest.firstdataglobalgateway.com:443/fdggwsapi/services';
 
-    /** @var  resource cURL handle */
+    /** @var  CurlHandle cURL handle */
     protected $curl;
 
     /** @var string SOAP template */
@@ -244,9 +245,9 @@ abstract class WebserviceAbstractRequest extends AbstractRequest
     /**
      * Build the cURL client.
      *
-     * @return resource
+     * @return CurlHandle
      */
-    public function buildCurlClient()
+    public function buildCurlClient():CurlHandle
     {
         //
         // Use PHP Native cURL because the various Soap clients (BeSimple,

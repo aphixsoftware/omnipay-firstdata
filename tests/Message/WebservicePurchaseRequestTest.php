@@ -2,6 +2,7 @@
 
 namespace Omnipay\FirstData\Message;
 
+use CurlHandle;
 use Omnipay\Tests\TestCase;
 
 class WebservicePurchaseRequestTest extends TestCase
