@@ -247,7 +247,7 @@ abstract class WebserviceAbstractRequest extends AbstractRequest
      *
      * @return CurlHandle
      */
-    public function buildCurlClient():CurlHandle
+    public function buildCurlClient(): CurlHandle
     {
         //
         // Use PHP Native cURL because the various Soap clients (BeSimple,
