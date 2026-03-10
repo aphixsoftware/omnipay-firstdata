@@ -33,7 +33,7 @@ class WebservicePurchaseRequestTest extends TestCase
         // Test request internals
         $curl = $request->buildCurlClient();
 
-        if (phpversion() >= '8.0.0') {
+        if (version_compare(PHP_VERSION, '8.0.0', '>=')) {
             $this->assertInstanceOf(\CurlHandle::class, $curl);
         } else {
             $this->assertIsResource($curl);
